@@ -1,0 +1,9 @@
+{
+  "invalidLogins": [
+    { "case": "wrong password", "email": "test.user@example.com", "password": "Wrong@12345", "status": 401 },
+    { "case": "unknown email", "email": "nobody@example.com", "password": "Test@12345", "status": 401 },
+    { "case": "empty password", "email": "test.user@example.com", "password": "", "status": 400 },
+    { "case": "malformed email", "email": "not-an-email", "password": "Test@12345", "status": 400 }
+  ],
+  "viewer": { "email": "viewer.user@example.com", "password": "Test@12345" }
+}

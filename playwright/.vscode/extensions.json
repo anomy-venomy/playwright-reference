@@ -1,0 +1,8 @@
+{
+  // VS Code will suggest installing these when the folder is opened
+  "recommendations": [
+    "ms-playwright.playwright", // run/debug tests from the editor, pick locators
+    "dbaeumer.vscode-eslint", // show ESLint errors inline
+    "esbenp.prettier-vscode" // Prettier formatter
+  ]
+}

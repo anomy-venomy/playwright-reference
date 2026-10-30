@@ -1,0 +1,14 @@
+# Installed packages
+node_modules/
+
+# Generated test output (reports, traces, screenshots, videos)
+reports/
+test-results/
+blob-report/
+
+# Saved login session from the setup project – contains auth tokens, never commit
+.auth/
+
+# Local secrets (your real credentials)
+env/.env.local
+.env

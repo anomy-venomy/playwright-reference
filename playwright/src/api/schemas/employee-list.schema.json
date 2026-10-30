@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Employee list response",
+  "type": "object",
+  "required": ["data", "meta"],
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "employeeCode", "fullName", "email", "department", "role", "status"],
+        "properties": {
+          "id": { "type": "integer" },
+          "employeeCode": { "type": "string", "pattern": "^EMP-\\d{4,6}$" },
+          "fullName": { "type": "string" },
+          "email": { "type": "string" },
+          "department": { "type": "object", "required": ["id", "name"] },
+          "role": { "type": "object", "required": ["id", "name"] },
+          "status": { "enum": ["ACTIVE", "INACTIVE"] }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": ["page", "pageSize", "total", "totalPages"],
+      "properties": {
+        "page": { "type": "integer", "minimum": 1 },
+        "pageSize": { "type": "integer", "minimum": 1 },
+        "total": { "type": "integer", "minimum": 0 },
+        "totalPages": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

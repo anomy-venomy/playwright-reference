@@ -1,0 +1,15 @@
+node_modules
+dist
+.env
+*.tsbuildinfo
+backend/prisma/*.db
+backend/prisma/*.db-journal
+backend/uploads/*
+!backend/uploads/.gitkeep
+test-results
+playwright-report
+blob-report
+playwright/.cache
+
+# Old local copy of the playwright folder
+*.zip

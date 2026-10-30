@@ -1,0 +1,9 @@
+# Files/folders Prettier should never reformat
+node_modules
+reports
+test-results
+blob-report
+.auth
+package-lock.json
+# Speaker notes, not code
+DEMO_SCRIPT.md

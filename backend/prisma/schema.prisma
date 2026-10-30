@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+/// Application user (someone who logs into the portal).
+/// role: "ADMIN" can manage employees, "VIEWER" has read-only access.
+model User {
+  id           Int      @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  email        String   @unique
+  passwordHash String
+  phone        String?
+  role         String   @default("ADMIN")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  employeesCreated Employee[] @relation("CreatedBy")
+}
+
+model Department {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  roles     Role[]
+  employees Employee[]
+}
+
+model Role {
+  id           Int        @id @default(autoincrement())
+  name         String
+  departmentId Int
+  department   Department @relation(fields: [departmentId], references: [id])
+  employees    Employee[]
+
+  @@unique([name, departmentId])
+}
+
+model Employee {
+  id           Int     @id @default(autoincrement())
+  employeeCode String  @unique
+
+  // Personal
+  firstName   String
+  lastName    String
+  email       String   @unique
+  phone       String
+  dateOfBirth DateTime
+  gender      String
+  avatarUrl   String?
+
+  // Professional
+  departmentId   Int
+  department     Department @relation(fields: [departmentId], references: [id])
+  roleId         Int
+  role           Role       @relation(fields: [roleId], references: [id])
+  employmentType String // FULL_TIME | PART_TIME | CONTRACT
+  joiningDate    DateTime
+  salary         Int
+  status         String     @default("ACTIVE") // ACTIVE | INACTIVE
+  managerId      Int?
+  manager        Employee?  @relation("ManagerReports", fields: [managerId], references: [id], onDelete: SetNull)
+  reports        Employee[] @relation("ManagerReports")
+
+  // Address & additional
+  address               String
+  country               String
+  state                 String
+  city                  String
+  pincode               String
+  skills                String // JSON-encoded string[] (SQLite has no array type)
+  emergencyContactName  String
+  emergencyContactPhone String
+
+  createdById Int?
+  createdBy   User?    @relation("CreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

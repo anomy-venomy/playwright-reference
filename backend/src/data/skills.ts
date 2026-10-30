@@ -1,0 +1,18 @@
+export const SKILLS = [
+  'JavaScript',
+  'TypeScript',
+  'React',
+  'Node.js',
+  'Python',
+  'Java',
+  'SQL',
+  'AWS',
+  'Docker',
+  'Figma',
+  'Communication',
+  'Leadership',
+  'Project Management',
+  'Sales',
+  'Accounting',
+  'Recruiting',
+] as const;

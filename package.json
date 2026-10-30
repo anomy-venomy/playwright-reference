@@ -1,0 +1,20 @@
+{
+  "name": "workflow-manager",
+  "version": "1.0.0",
+  "private": true,
+  "description": "WorkFlow Manager — a realistic employee management portal built as a Playwright E2E practice target",
+  "scripts": {
+    "install:all": "npm install && npm --prefix backend install && npm --prefix frontend install",
+    "setup": "npm run install:all && npm run env:init && npm --prefix backend run db:deploy && npm --prefix backend run db:seed",
+    "env:init": "node -e \"const fs=require('fs'),c=require('crypto');if(!fs.existsSync('backend/.env')){fs.writeFileSync('backend/.env',fs.readFileSync('backend/.env.example','utf8').replace('change-me-to-a-long-random-string',c.randomBytes(32).toString('hex')));console.log('Created backend/.env')}if(!fs.existsSync('frontend/.env')){fs.copyFileSync('frontend/.env.example','frontend/.env');console.log('Created frontend/.env')}\"",
+    "dev": "concurrently -n api,web -c blue,magenta \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "db:reset": "npm --prefix backend run db:reset",
+    "db:seed": "npm --prefix backend run db:seed"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "editor.formatOnSave": true, // run Prettier every time you save
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // use Prettier as the formatter
+  "playwright.reuseBrowser": true, // Playwright extension: keep one browser open between runs
+  "playwright.showTrace": false // don't auto-open the trace viewer after each run
+}
