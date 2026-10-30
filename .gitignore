@@ -1,15 +1,16 @@
+# PUBLIC repo – never commit secrets. Copy the *.example files on a new machine.
 node_modules
-dist
-.env
-*.tsbuildinfo
-backend/prisma/*.db
-backend/prisma/*.db-journal
-backend/uploads/*
-!backend/uploads/.gitkeep
-test-results
-playwright-report
-blob-report
-playwright/.cache
 
-# Old local copy of the playwright folder
-*.zip
+# Secrets: real credentials and signing keys
+.env
+.env.local
+playwright/env/.env.local
+
+# Saved login sessions (live auth tokens)
+playwright/.auth/
+
+# Test reports and traces – traces record network traffic incl. auth headers and login bodies
+playwright/reports/
+test-results/
+playwright-report/
+blob-report/

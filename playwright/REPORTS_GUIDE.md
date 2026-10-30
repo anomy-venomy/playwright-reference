@@ -567,18 +567,21 @@ p:auddia            only the auddia project
 
 **Code.**
 ```ts
-// Capture the browser console + page errors into the report (hooks version)
-let browserLogs: string[] = [];
+// Capture the browser console + page errors into the report
+test.beforeEach(async ({ page }, testInfo) => {
+  const lines: string[] = [];
+  page.on('console', (msg) => lines.push(`[${msg.type()}] ${msg.text()}`));
+  page.on('pageerror', (err) => lines.push(`[pageerror] ${err.message}`));
 
-test.beforeEach(async ({ page }) => {
-  browserLogs = [];
-  page.on('console', (msg) => browserLogs.push(`[${msg.type()}] ${msg.text()}`));
-  page.on('pageerror', (err) => browserLogs.push(`[pageerror] ${err.message}`));
+  // Runs after each test: attach only when something was logged
+  testInfo.attachments; // (just to show testInfo is available here)
+  test.info().annotations; //
+  afterEachLogs = lines;
 });
-
+let afterEachLogs: string[] = [];
 test.afterEach(async ({}, testInfo) => {
-  if (browserLogs.length) {
-    await testInfo.attach('browser console', { body: browserLogs.join('\n'), contentType: 'text/plain' });
+  if (afterEachLogs.length) {
+    await testInfo.attach('browser console', { body: afterEachLogs.join('\n'), contentType: 'text/plain' });
   }
 });
 ```
