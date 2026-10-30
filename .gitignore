@@ -1,10 +1,8 @@
 # PUBLIC repo – never commit secrets. Copy the *.example files on a new machine.
 node_modules
 
-# Secrets: real credentials and signing keys
-.env
-.env.local
-playwright/env/.env.local
+# Env files ARE committed, but with secrets masked as ****. Local real values are protected by
+#   git update-index --skip-worktree <file>   (undo: --no-skip-worktree)
 
 # Saved login sessions (live auth tokens)
 playwright/.auth/
